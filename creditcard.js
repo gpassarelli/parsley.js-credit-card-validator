@@ -130,4 +130,41 @@
             return /^[0-9]{3,4}$/.test(value);
         }, 32)
         .addMessage('en', 'cvv', 'This value should be a valid CVV number');
+
+    //---------------------------------------
+    // Expiry Date Verification
+    //---------------------------------------
+    window.ParsleyValidator.addValidator('expirydate',
+        function (value) {
+            var currentTime, expiry, prefix, ref;
+
+            if(value.indexOf('/') === -1){
+              return false;
+            }
+
+            var date = value.split('/'),
+                month = date[0].trim(),
+                year  = date[1].trim();
+
+            if (!/^\d+$/.test(month)) {
+              return false;
+            }
+            if (!/^\d+$/.test(year)) {
+              return false;
+            }
+            if (!(parseInt(month, 10) <= 12)) {
+              return false;
+            }
+            if (year.length === 2) {
+              prefix = (new Date).getFullYear();
+              prefix = prefix.toString().slice(0, 2);
+              year = prefix + year;
+            }
+            expiry = new Date(year, month);
+            currentTime = new Date;
+            expiry.setMonth(expiry.getMonth() - 1);
+            expiry.setMonth(expiry.getMonth() + 1, 1);
+            return expiry > currentTime;
+        }, 32)
+        .addMessage('en', 'cvv', 'This value should be a valid date');
 }());
