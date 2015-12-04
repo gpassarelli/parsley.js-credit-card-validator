@@ -1,12 +1,16 @@
 {
   "name": "parsleyjs-creditcard-validator",
+  "version": "2.0.0",
   "homepage": "https://github.com/gpassarelli/parsley.js-credit-card-validator",
   "authors": [
     "Gabriel Passarelli <passarelli.gabriel@gmail.com>"
   ],
   "description": "A credit card validator for Parsley.js including validation for specific brands",
-  "main": "creditcard.js",
+  "main": "./dist/creditcard.js",
   "moduleType": [],
+  "dependencies": {
+    "parsleyjs": "~2.0.7"
+  },
   "keywords": [
     "parsley",
     "creditcard",
@@ -19,6 +23,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "grunt",
+    "src",
   ]
 }
