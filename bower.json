@@ -5,11 +5,12 @@
     "Gabriel Passarelli <passarelli.gabriel@gmail.com>"
   ],
   "description": "A credit card validator for Parsley.js including validation for specific brands",
-  "main": "parsley-creditcard.js",
+  "main": "creditcard.js",
   "moduleType": [],
   "keywords": [
     "parsley",
     "creditcard",
+    "credit card",
     "validation"
   ],
   "license": "MIT",
