@@ -1,5 +1,5 @@
 {
-  "name": "parsley-creditcard-validator",
+  "name": "parsleyjs-creditcard-validator",
   "homepage": "https://github.com/gpassarelli/parsley.js-credit-card-validator",
   "authors": [
     "Gabriel Passarelli <passarelli.gabriel@gmail.com>"
