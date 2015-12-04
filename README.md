@@ -1,5 +1,21 @@
 # Parsley.js - Credit Card Validator
-A credit card validator for Parsley.js including validation for specific brands
+A credit card validator for [Parsley.js](http://parsleyjs.org/) including validation for specific brands
+
+# Brands Validation
+This plugins offers validation for the following credit card brands:
+* Amex
+* China Union Pay
+* Dankort
+* Diners Club CarteBlanche
+* Diners Club International
+* Diners Club US & Canada
+* Discover
+* JCB
+* Laser
+* Maestro
+* Mastercard
+* Visa
+* Visa Electron
 
 # Usage
 
