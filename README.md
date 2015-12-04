@@ -30,6 +30,11 @@ If you want to check if the credit card number is valid and also check if is for
 `<input required="required" data-parsley-creditcard="visa,mastercard" type="tel">`
 
 #### Card CVC 
-Add the **data-parsley-cvv** attribute to your input:
+To validate the card cvc code, add the **data-parsley-cvv** attribute to your input:
 
 `<input required="required" data-parsley-cvv="" type="tel">`
+
+#### Card Expiry Date 
+To validate the card expiry date, add the **data-parsley-expirydate** attribute to your input:
+
+`<input required="required" data-parsley-expirydate="" type="tel">`
