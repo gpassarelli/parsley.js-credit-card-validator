@@ -1,6 +1,6 @@
 {
   "name": "parsleyjs-creditcard-validator",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://github.com/gpassarelli/parsley.js-credit-card-validator",
   "authors": [
     "Gabriel Passarelli <passarelli.gabriel@gmail.com>"
