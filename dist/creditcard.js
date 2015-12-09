@@ -12,82 +12,78 @@
 //---------------------------------------
 (function () {
     'use strict';
-
-    function validateCreditCardBrand(number, valid_types){
-        var _j, _len1,
-            requirement = requirement.split(','),
-            card_types = {
-              'amex': {
-                pattern: /^3[47]/,
-                valid_length: [15]
-              },
-              'china_union_pay': {
-                pattern: /^(62|88)/,
-                valid_length: [16, 17, 18, 19]
-              },
-              'dankort': {
-                pattern: /^5019/,
-                valid_length: [16]
-              },
-              'diners_club_carte_blanche': {
-                pattern: /^30[0-5]/,
-                valid_length: [14]
-              },
-              'diners_club_international': {
-                pattern: /^(30[0-5]|309|36|38|39)/,
-                valid_length: [14]
-              },
-              'diners_club_us_and_canada': {
-                pattern: /^(54|55)/,
-                valid_length: [16]
-              },
-              'discover': {
-                pattern: /^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/,
-                valid_length: [16]
-              },
-              'jcb': {
-                pattern: /^35(2[89]|[3-8][0-9])/,
-                valid_length: [16]
-              },
-              'laser': {
-                pattern: /^(6304|670[69]|6771)/,
-                valid_length: [16, 17, 18, 19]
-              },
-              'maestro': {
-                pattern: /^(5018|5020|5038|6304|6759|676[1-3])/,
-                valid_length: [12, 13, 14, 15, 16, 17, 18, 19]
-              },
-              'mastercard': {
-                pattern: /^5[1-5]/,
-                valid_length: [16]
-              },
-              'visa': {
-                pattern: /^4/,
-                valid_length: [16]
-              },
-              'visa_electron': {
-                pattern: /^(4026|417500|4508|4844|491(3|7))/,
-                valid_length: [16]
-              }
-            };
-
-
-        for (_j = 0, _len1 = requirement.length; _j < _len1; _j++) {
-          var brand = requirement[_j],
-              card = card_types[brand];
-
-          if (typeof card != 'undefined' && card.pattern.test(value) && card.valid_length.indexOf(value.length) > -1) {
-            return true;
-          }
-
+    window.getCreditCardBrand = function(number){
+      var _j, _len1,
+      card_types = [
+        {
+          name: 'amex',
+          pattern: /^3[47]/,
+          valid_length: [15]
+        },{
+          name: 'china_union_pay',
+          pattern: /^(62|88)/,
+          valid_length: [16, 17, 18, 19]
+        },{
+          name: 'dankort',
+          pattern: /^5019/,
+          valid_length: [16]
+        },{
+          name: 'diners_club_carte_blanche',
+          pattern: /^30[0-5]/,
+          valid_length: [14]
+        },{
+          name: 'diners_club_international',
+          pattern: /^(30[0-5]|309|36|38|39)/,
+          valid_length: [14]
+        },{
+          name: 'diners_club_us_and_canada',
+          pattern: /^(54|55)/,
+          valid_length: [16]
+        },{
+          name: 'discover',
+          pattern: /^(6011|622(12[6-9]|1[3-9][0-9]|[2-8][0-9]{2}|9[0-1][0-9]|92[0-5]|64[4-9])|65)/,
+          valid_length: [16]
+        },{
+          name: 'jcb',
+          pattern: /^35(2[89]|[3-8][0-9])/,
+          valid_length: [16]
+        },{
+          name: 'laser',
+          pattern: /^(6304|670[69]|6771)/,
+          valid_length: [16, 17, 18, 19]
+        },{
+          name: 'maestro',
+          pattern: /^(5018|5020|5038|6304|6759|676[1-3])/,
+          valid_length: [12, 13, 14, 15, 16, 17, 18, 19]
+        },{
+          name: 'mastercard',
+          pattern: /^5[1-5]/,
+          valid_length: [16]
+        },{
+          name: 'visa',
+          pattern: /^4/,
+          valid_length: [16]
+        },{
+          name: 'visa_electron',
+          pattern: /^(4026|417500|4508|4844|491(3|7))/,
+          valid_length: [16]
         }
+      ];
 
-        return false;
+      for (_j = 0, _len1 = card_types.length; _j < _len1; _j++) {
+        var card = card_types[_j];
+        if (card.pattern.test(number) && card.valid_length.indexOf(number.length) > -1) {
+          return card.name;
+        }
+      }
+
+      return null;
     };
+
     //
     window.ParsleyValidator.addValidator('creditcard',
         function (value, requirement) {
-            var digit, n, _ref2, valid,
+            var digit, n, _ref2, valid, _j, _len1,
                 sum = 0;
 
 
@@ -110,11 +106,14 @@
                     sum += digit;
                 }
             }
-            valid =  sum % 10 === 0;
+            valid =  (sum % 10 === 0);
 
             // Checks for specific brands
             if(requirement.length){
-                return validateCreditCardBrand(value, requirement);
+              var valid_cards = requirement.split(','),
+                  card = getCreditCardBrand(value);
+
+              valid = (requirement.indexOf(card) > -1);
             }
 
             return valid;
