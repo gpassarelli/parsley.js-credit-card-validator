@@ -12,8 +12,22 @@
 //---------------------------------------
 (function () {
     'use strict';
-    window.getCreditCardBrand = function(number){
+
+    /**
+     * Helper function to get credit card brand name from credit card number.
+     * @param  string number        The credit card number
+     * @param  boolean check_length Should it check for length
+     * @return mixed                The card brand name or null
+     */
+    window.getCreditCardBrand = function(number, check_length){
       var _j, _len1,
+      number = number.replace(/[ -]/g, '');
+
+      if(!number.length){
+        return;
+      }
+
+      var check_length = (typeof check_length !== 'undefined') ? check_length : false,
       card_types = [
         {
           name: 'amex',
@@ -72,7 +86,12 @@
 
       for (_j = 0, _len1 = card_types.length; _j < _len1; _j++) {
         var card = card_types[_j];
-        if (card.pattern.test(number) && card.valid_length.indexOf(number.length) > -1) {
+
+        if (card.pattern.test(number)) {
+          if(check_length) {
+            return (card.valid_length.indexOf(number.length) > -1) ? card.name : null;
+          }
+
           return card.name;
         }
       }
@@ -80,7 +99,9 @@
       return null;
     };
 
-    //
+    //---------------------------------------
+    // CreditCard Number Verification
+    //---------------------------------------
     window.ParsleyValidator.addValidator('creditcard',
         function (value, requirement) {
             var digit, n, _ref2, valid, _j, _len1,
@@ -111,7 +132,7 @@
             // Checks for specific brands
             if(requirement.length){
               var valid_cards = requirement.split(','),
-                  card = getCreditCardBrand(value);
+                  card = getCreditCardBrand(value, true);
 
               valid = (requirement.indexOf(card) > -1);
             }
