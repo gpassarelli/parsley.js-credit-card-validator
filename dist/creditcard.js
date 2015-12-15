@@ -1,7 +1,4 @@
 /*
- * parsley.js - credicard validator with brand validation | Suraj Sanchit | http://parsleyjs.org/ | http://www.graciousstudios.nl/
- * Refactored from parsley v1.0
- *
  * Example CVV: data-parsley-cvv
  * Example Creditcard: data-parsley-creditcard
  * Example Creditcard with specific brands: data-parsley-creditcard='visa,mastercard'
@@ -21,6 +18,7 @@
      */
     window.getCreditCardBrand = function(number, check_length){
       var _j, _len1,
+      card_name = [],
       number = number.replace(/[ -]/g, '');
 
       if(!number.length){
@@ -88,12 +86,17 @@
         var card = card_types[_j];
 
         if (card.pattern.test(number)) {
-          if(check_length) {
-            return (card.valid_length.indexOf(number.length) > -1) ? card.name : null;
+          if (check_length && card.valid_length.indexOf(number.length) > -1) {
+            card_name.push(card.name);
+            return;
           }
 
-          return card.name;
+          card_name.push(card.name);
         }
+      }
+
+      if(card_name.length) {
+        return card_name.join(' ');
       }
 
       return null;
@@ -130,11 +133,16 @@
             valid =  (sum % 10 === 0);
 
             // Checks for specific brands
-            if(requirement.length){
+            if(valid && requirement.length){
               var valid_cards = requirement.split(','),
-                  card = getCreditCardBrand(value, true);
+                  valid = false,
+                  card = getCreditCardBrand(value, true).split(' ');
 
-              valid = (requirement.indexOf(card) > -1);
+              for( var c in card){
+                if(requirement.indexOf(c) > -1) {
+                  valid = true;
+                }
+              }
             }
 
             return valid;
