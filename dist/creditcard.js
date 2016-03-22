@@ -194,5 +194,5 @@
             expiry.setMonth(expiry.getMonth() + 1, 1);
             return expiry > currentTime;
         }, 32)
-        .addMessage('en', 'cvv', 'This value should be a valid date');
+        .addMessage('en', 'expirydate', 'This value should be a valid date');
 }());
