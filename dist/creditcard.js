@@ -88,7 +88,7 @@
         if (card.pattern.test(number)) {
           if (check_length && card.valid_length.indexOf(number.length) > -1) {
             card_name.push(card.name);
-            return;
+            break;
           }
 
           card_name.push(card.name);
@@ -139,7 +139,7 @@
                   card = getCreditCardBrand(value, true).split(' ');
 
               for( var c in card){
-                if(requirement.indexOf(c) > -1) {
+                if(requirement.indexOf(card[c]) > -1) {
                   valid = true;
                 }
               }
