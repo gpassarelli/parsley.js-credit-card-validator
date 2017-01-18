@@ -105,7 +105,7 @@
     //---------------------------------------
     // CreditCard Number Verification
     //---------------------------------------
-    window.ParsleyValidator.addValidator('creditcard',
+    window.Parsley.addValidator('creditcard',
         function (value, requirement) {
             var digit, n, _ref2, valid, _j, _len1,
                 sum = 0;
@@ -153,7 +153,7 @@
     //---------------------------------------
     // CCV Verification
     //---------------------------------------
-    window.ParsleyValidator.addValidator('cvv',
+    window.Parsley.addValidator('cvv',
         function (value) {
             return /^[0-9]{3,4}$/.test(value);
         }, 32)
@@ -162,7 +162,7 @@
     //---------------------------------------
     // Expiry Date Verification
     //---------------------------------------
-    window.ParsleyValidator.addValidator('expirydate',
+    window.Parsley.addValidator('expirydate',
         function (value) {
             var currentTime, expiry, prefix, ref;
 
