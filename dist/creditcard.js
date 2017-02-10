@@ -86,12 +86,14 @@
         var card = card_types[_j];
 
         if (card.pattern.test(number)) {
-          if (check_length && card.valid_length.indexOf(number.length) > -1) {
+          if (check_length) {
+            if(card.valid_length.indexOf(number.length) > -1) {
+              card_name.push(card.name);
+            }
+          } else {
             card_name.push(card.name);
-            break;
           }
 
-          card_name.push(card.name);
         }
       }
 
